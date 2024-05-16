@@ -5,4 +5,5 @@ public final class ConversationId {
     public static final String ATTACKER_AMBIGUOUS_ACTION_INFORM = "ATTACKER_AMBIGUOUS_ACTION_INFORM";
     public static final String DEFENDER_STATE_INFORM = "DEFENDER_STATE_INFORM";
     public static final String ATTACKER_GAME_SITUATION_OUTCOME_INFORM = "ATTACKER_GAME_SITUATION_OUTCOME_INFORM";
+    public static final String GAME_OUTCOME = "GAME_OUTCOME";
 }

@@ -3,6 +3,9 @@ package com.project.agentintelligent.agents.defender.behaviours;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.project.agentintelligent.ConversationId;
 import com.project.agentintelligent.agents.defender.Defender;
 
@@ -11,6 +14,7 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class DefenderSendStateToAttacker extends OneShotBehaviour {
+    private static final Logger logger = LoggerFactory.getLogger(DefenderSendStateToAttacker.class);
 
     private Defender defender;
 
@@ -34,7 +38,7 @@ public class DefenderSendStateToAttacker extends OneShotBehaviour {
             stateInform.addReceiver(new AID("Attacker", AID.ISLOCALNAME));
             stateInform.setByteSequenceContent(serializedObject);
             stateInform.setConversationId(ConversationId.DEFENDER_STATE_INFORM);
-            System.out.println("DEFENDER: Sending state to Attacker");
+            logger.debug("DEFENDER: Sending state to Attacker");
             myAgent.send(stateInform);
         } catch (Exception e) {
             e.printStackTrace();

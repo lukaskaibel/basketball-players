@@ -1,17 +1,23 @@
 package com.project.agentintelligent.agents.attacker.behaviours;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.project.agentintelligent.PossessionOutcome;
 import com.project.agentintelligent.agents.attacker.Attacker;
 
 import jade.core.behaviours.SequentialBehaviour;
 
 public class AttackerPossessionBehaviour extends SequentialBehaviour {
+    private static final Logger logger = LoggerFactory.getLogger(AttackerPossessionBehaviour.class);
 
     private final Attacker attacker;
+    private final AttackerGameBehaviour attackerGameBehaviour;
 
-    public AttackerPossessionBehaviour(Attacker attacker) {
+    public AttackerPossessionBehaviour(Attacker attacker, final AttackerGameBehaviour attackerGameBehaviour) {
         super(attacker);
         this.attacker = attacker;
+        this.attackerGameBehaviour = attackerGameBehaviour;
 
         addSubBehaviour(new AttackerAssessDefender(attacker));
         addSubBehaviour(new AttackerPerformAction(attacker));
@@ -24,11 +30,11 @@ public class AttackerPossessionBehaviour extends SequentialBehaviour {
     @Override
     public int onEnd() {
         if (attacker.getPossessionOutcome() == PossessionOutcome.UNDETERMINED) {
-            System.out.println("ATTACKER: Possession outcome undetermined, resetting");
-            attacker.addBehaviour(new AttackerPossessionBehaviour(attacker)); // Re-add the behaviour
+            logger.debug("ATTACKER: Possession outcome undetermined");
+            attackerGameBehaviour.addSubBehaviour(new AttackerPossessionBehaviour(attacker, attackerGameBehaviour)); // Re-add the behaviour
             return super.onEnd();
         } else {
-            System.out.println("ATTACKER: Possession outcome determined, finishing");
+            logger.debug("ATTACKER: Possession outcome determined");
             attacker.resetPossession();
             return super.onEnd();
         }

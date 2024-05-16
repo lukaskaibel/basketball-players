@@ -3,6 +3,7 @@ package com.project.agentintelligent.agents.attacker.behaviours;
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
 
+import com.project.agentintelligent.App;
 import com.project.agentintelligent.ConversationId;
 import com.project.agentintelligent.agents.attacker.Attacker;
 import com.project.agentintelligent.agents.defender.state.DefenderState;
@@ -12,7 +13,11 @@ import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class AttackerAssessDefender extends SimpleBehaviour {
+    private static final Logger logger = LoggerFactory.getLogger(AttackerAssessDefender.class);
     
     private Attacker attacker;
     private boolean done = false;
@@ -29,7 +34,7 @@ public class AttackerAssessDefender extends SimpleBehaviour {
         request.addReceiver(new AID("Defender", AID.ISLOCALNAME));
         request.setContent("ATTACKER: Requesting your action and position");
         request.setConversationId(ConversationId.DEFENDER_STATE_REQUEST);
-        System.out.println("ATTACKER: Sending state request to Defender");
+        logger.debug("ATTACKER: Sending state request to Defender");
         myAgent.send(request);
 
         // Wait for the response
@@ -37,9 +42,9 @@ public class AttackerAssessDefender extends SimpleBehaviour {
             MessageTemplate.MatchSender(new AID("Defender", AID.ISLOCALNAME)),
             MessageTemplate.MatchConversationId(ConversationId.DEFENDER_STATE_REQUEST)
         );
-        System.out.println("ATTACKER: Waiting for defender state response...");
+        logger.debug("ATTACKER: Waiting for defender state response...");
         ACLMessage defenderStateResponse = myAgent.blockingReceive(getDefenderStateTemplate);
-        System.out.println("ATTACKER: Received defender state response: " + defenderStateResponse.getContent());
+        logger.debug("ATTACKER: Received defender state response: " + defenderStateResponse.getContent());
 
         if (defenderStateResponse != null) {
             try {
@@ -50,7 +55,7 @@ public class AttackerAssessDefender extends SimpleBehaviour {
                 DefenderState defenderState = (DefenderState) ois.readObject();
                 ois.close();
 
-                System.out.println("ATTACKER: received defender state: " + defenderState);
+                logger.debug("ATTACKER: received defender state: " + defenderState);
                 attacker.setDefenderState(defenderState);
             } catch (Exception e) {
                 e.printStackTrace();

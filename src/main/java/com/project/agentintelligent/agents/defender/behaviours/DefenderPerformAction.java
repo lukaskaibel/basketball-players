@@ -4,14 +4,17 @@ import jade.core.behaviours.OneShotBehaviour;
 
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.project.agentintelligent.agents.attacker.state.AmbiguousAttackerAction;
 import com.project.agentintelligent.agents.attacker.state.AmbiguousAttackerState;
-import com.project.agentintelligent.agents.attacker.state.AttackerAction;
 import com.project.agentintelligent.agents.defender.Defender;
 import com.project.agentintelligent.agents.defender.state.DefenderAction;
 import com.project.agentintelligent.agents.defender.state.DefenderState;
 
 public class DefenderPerformAction extends OneShotBehaviour {
+    private static final Logger logger = LoggerFactory.getLogger(DefenderPerformAction.class);
 
     private Defender defender;
 
@@ -25,11 +28,12 @@ public class DefenderPerformAction extends OneShotBehaviour {
         if (defender.getDefenderState().getAction() == DefenderAction.STEALING
             || defender.getDefenderState().getAction() == DefenderAction.BLOCKING
         ) {
-            System.out.println("-> DEFENDER FAKED OUT");
+            logger.info("-> DEFENDER FAKED OUT");
             defender.setDefenderState(new DefenderState(
                 DefenderAction.IDLE, 
                 defender.getDefenderState().getPosition()
             ));
+            return;
         }
         AmbiguousAttackerState ambiguousAttackerState = defender.getAmbiguousAttackerState();
         int attackerPosition = ambiguousAttackerState.getPosition();
@@ -42,7 +46,7 @@ public class DefenderPerformAction extends OneShotBehaviour {
                 DefenderAction.MOVING_BACK, 
                 defender.getDefenderState().getPosition() - 1
             ));
-            System.out.println("-> DEFENDER " + defender.getDefenderState().getAction());
+            logger.info("-> DEFENDER " + defender.getDefenderState().getAction());
             return;
         }
         switch (ambiguousAttackerAction) {
@@ -65,7 +69,7 @@ public class DefenderPerformAction extends OneShotBehaviour {
                     defender.getDefenderState().getPosition()
                 ));
         }
-        System.out.println("-> DEFENDER " + defender.getDefenderState().getAction());
+        logger.info("-> DEFENDER " + defender.getDefenderState().getAction());
     }
 
     private DefenderAction chooseBlockOrIdle() {

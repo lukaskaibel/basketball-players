@@ -13,6 +13,20 @@
         <url>https://jade.tilab.com/maven/</url>
     </repository>
   </repositories>
+  <profiles>
+    <profile>
+        <id>default</id>
+        <properties>
+            <logback.configurationFile>src/main/resources/logback-info.xml</logback.configurationFile>
+        </properties>
+    </profile>
+    <profile>
+        <id>debug</id>
+        <properties>
+            <logback.configurationFile>src/main/resources/logback-debug.xml</logback.configurationFile>
+        </properties>
+    </profile>
+  </profiles>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -24,6 +38,16 @@
       <groupId>com.tilab.jade</groupId>
       <artifactId>jade</artifactId>
       <version>4.5.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.7.36</version>
+    </dependency>
+    <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.2.11</version>
     </dependency>
   </dependencies>
   <build>

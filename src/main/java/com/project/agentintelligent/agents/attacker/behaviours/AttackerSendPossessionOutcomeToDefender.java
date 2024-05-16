@@ -1,5 +1,8 @@
 package com.project.agentintelligent.agents.attacker.behaviours;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.project.agentintelligent.ConversationId;
 import com.project.agentintelligent.agents.attacker.Attacker;
 
@@ -8,6 +11,7 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class AttackerSendPossessionOutcomeToDefender extends OneShotBehaviour{
+    private static final Logger logger = LoggerFactory.getLogger(AttackerSendPossessionOutcomeToDefender.class);
     
     private Attacker attacker;
 
@@ -25,7 +29,7 @@ public class AttackerSendPossessionOutcomeToDefender extends OneShotBehaviour{
         msg.setConversationId(ConversationId.ATTACKER_GAME_SITUATION_OUTCOME_INFORM);
         myAgent.send(msg);
 
-        System.out.println(attacker.getLocalName() + " sent game situation outcome: " + attacker.getPossessionOutcome() + " to Defender");
+        logger.debug(attacker.getLocalName() + " sent game situation outcome: " + attacker.getPossessionOutcome() + " to Defender");
     }
 
 }

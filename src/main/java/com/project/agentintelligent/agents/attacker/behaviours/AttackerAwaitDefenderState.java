@@ -8,12 +8,15 @@ import jade.lang.acl.MessageTemplate;
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.project.agentintelligent.ConversationId;
 import com.project.agentintelligent.agents.attacker.Attacker;
-import com.project.agentintelligent.agents.defender.state.DefenderAction;
 import com.project.agentintelligent.agents.defender.state.DefenderState;
 
 public class AttackerAwaitDefenderState extends SimpleBehaviour {
+    private static final Logger logger = LoggerFactory.getLogger(AttackerAwaitDefenderState.class);
     
     private Attacker attacker;
     private boolean done = false;
@@ -29,7 +32,7 @@ public class AttackerAwaitDefenderState extends SimpleBehaviour {
             MessageTemplate.MatchSender(new AID("Defender", AID.ISLOCALNAME)),
             MessageTemplate.MatchConversationId(ConversationId.DEFENDER_STATE_INFORM)
         );
-        System.out.println("ATTACKER: Waiting for defender state response...");
+        logger.debug("ATTACKER: Waiting for defender state response...");
         ACLMessage defenderStateResponse = myAgent.blockingReceive(getDefenderActionTemplate);
 
         if (defenderStateResponse != null) {

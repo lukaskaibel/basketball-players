@@ -1,7 +1,6 @@
 package com.project.agentintelligent.agents.attacker.state;
 
 public class AttackerState {
-    private static final long serialVersionUID = 1L;
     private final AttackerAction action;
     private final int position;
 

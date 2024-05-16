@@ -1,5 +1,8 @@
 package com.project.agentintelligent.agents.defender.behaviours;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.project.agentintelligent.ConversationId;
 import com.project.agentintelligent.PossessionOutcome;
 import com.project.agentintelligent.agents.defender.Defender;
@@ -10,6 +13,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 public class DefenderAwaitPossessionOutcome extends SimpleBehaviour {
+    private static final Logger logger = LoggerFactory.getLogger(DefenderAwaitPossessionOutcome.class);
     
     private boolean done = false;
     private Defender defender;
@@ -27,7 +31,6 @@ public class DefenderAwaitPossessionOutcome extends SimpleBehaviour {
         );
 
         ACLMessage possessionOutcomeMessage = myAgent.blockingReceive(possessionOutcomeTemplate);
-        System.out.println("DEFENDER: Received game situation outcome: " + possessionOutcomeMessage.getContent());
 
         PossessionOutcome possessionOutcome = PossessionOutcome.valueOf(PossessionOutcome.class, possessionOutcomeMessage.getContent());
         defender.setLastPossessionOutcome(possessionOutcome);

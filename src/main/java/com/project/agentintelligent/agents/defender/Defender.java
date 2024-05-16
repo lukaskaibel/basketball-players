@@ -6,7 +6,7 @@ import com.project.agentintelligent.agents.attacker.state.AmbiguousAttackerState
 
 import com.project.agentintelligent.agents.defender.state.DefenderAction;
 import com.project.agentintelligent.agents.defender.state.DefenderState;
-import com.project.agentintelligent.agents.defender.behaviours.DefenderPossessionBehaviour;
+import com.project.agentintelligent.agents.defender.behaviours.DefenderGameBehaviour;
 
 import jade.core.Agent;
 
@@ -22,13 +22,18 @@ public class Defender extends Agent {
     }
 
     protected void setup() {
-        addBehaviour(new DefenderPossessionBehaviour(this));
+        addBehaviour(new DefenderGameBehaviour(this));
     }
 
     public void resetPossession() {
         this.setDefenderState(new DefenderState(DefenderAction.IDLE, 4));
         this.setAmbiguousAttackerState(new AmbiguousAttackerState(AmbiguousAttackerAction.IDLE, 5));
         this.possessionOutcome = PossessionOutcome.UNDETERMINED;
+    }
+
+    public void resetGame() {
+        this.score = 0;
+        this.resetPossession();
     }
 
     public int getScore() {

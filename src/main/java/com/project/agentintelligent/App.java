@@ -6,11 +6,14 @@ import jade.core.Runtime;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 
+import ch.qos.logback.classic.Level;
+
 /**
  * Entry point of the application that sets up and runs JADE agents.
  */
 public class App {
     public static void main(String[] args) {
+        LogLevelSetter.setLoggingLevel(Level.INFO);
         // Setup the JADE runtime environment
         Runtime rt = Runtime.instance();
         Profile profile = new ProfileImpl();

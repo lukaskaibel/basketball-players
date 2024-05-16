@@ -7,6 +7,9 @@ import jade.lang.acl.ACLMessage;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.project.agentintelligent.ConversationId;
 import com.project.agentintelligent.agents.attacker.Attacker;
 import com.project.agentintelligent.agents.attacker.state.AmbiguousAttackerAction;
@@ -14,6 +17,7 @@ import com.project.agentintelligent.agents.attacker.state.AmbiguousAttackerState
 import com.project.agentintelligent.agents.attacker.state.AttackerAction;
 
 public class AttackerSendAbiguousActionToDefender extends OneShotBehaviour {
+    private static final Logger logger = LoggerFactory.getLogger(AttackerSendAbiguousActionToDefender.class);
 
     private Attacker attacker;
 
@@ -40,7 +44,7 @@ public class AttackerSendAbiguousActionToDefender extends OneShotBehaviour {
             ambiguousStateInform.addReceiver(new AID("Defender", AID.ISLOCALNAME));
             ambiguousStateInform.setByteSequenceContent(serializedObject);
             ambiguousStateInform.setConversationId(ConversationId.ATTACKER_AMBIGUOUS_ACTION_INFORM);
-            System.out.println("ATTACKER: Sending ambiguous state to Defender");
+            logger.debug("ATTACKER: Sending ambiguous state to Defender");
             myAgent.send(ambiguousStateInform);
         } catch (Exception e) {
             e.printStackTrace();

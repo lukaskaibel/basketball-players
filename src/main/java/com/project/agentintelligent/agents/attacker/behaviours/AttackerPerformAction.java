@@ -1,6 +1,10 @@
 package com.project.agentintelligent.agents.attacker.behaviours;
 
 import java.util.Random;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jade.core.behaviours.OneShotBehaviour;
 
 import com.project.agentintelligent.agents.attacker.Attacker;
@@ -11,6 +15,7 @@ import com.project.agentintelligent.agents.defender.state.DefenderAction;
 
 
 public class AttackerPerformAction extends OneShotBehaviour {
+    private static final Logger logger = LoggerFactory.getLogger(AttackerPerformAction.class);
 
     private Attacker attacker;
 
@@ -42,7 +47,7 @@ public class AttackerPerformAction extends OneShotBehaviour {
                 }
                 break;
         }
-        System.out.println("-> ATTACKER " + attacker.getAttackerState().getAction());
+        logger.info("-> ATTACKER " + attacker.getAttackerState().getAction());
     }
 
     private AttackerAction chooseRandomAction() {

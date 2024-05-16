@@ -1,5 +1,8 @@
 package com.project.agentintelligent.agents.attacker.behaviours;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.project.agentintelligent.PossessionOutcome;
 import com.project.agentintelligent.agents.attacker.Attacker;
 import com.project.agentintelligent.agents.attacker.state.AttackerAction;
@@ -9,6 +12,7 @@ import com.project.agentintelligent.agents.defender.state.DefenderAction;
 import jade.core.behaviours.OneShotBehaviour;
 
 public class AttackerDeterminePossessionOutcome extends OneShotBehaviour {
+    private static final Logger logger = LoggerFactory.getLogger(AttackerDeterminePossessionOutcome.class);
 
     private Attacker attacker;
 
@@ -26,7 +30,7 @@ public class AttackerDeterminePossessionOutcome extends OneShotBehaviour {
                 attacker.setPossessionOutcome(PossessionOutcome.DEFENDER_BLOCKS);
             } else {
                 attacker.setScore(attacker.getScore() + 1);
-                System.out.println("ATTACKER: Scored a point!");
+                logger.info("ATTACKER: Score: " + attacker.getScore());
                 attacker.setPossessionOutcome(PossessionOutcome.ATTACKER_SCORES);
             }
             return;
