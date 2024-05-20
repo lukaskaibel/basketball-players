@@ -1,56 +1,43 @@
-Certainly! Below is a README template that outlines the steps we went through to set up your JADE project in a Maven environment and how to run two communicating agents. You can adjust the details as necessary to better fit your specific project setup.
+# Basketball Simulation
 
----
+![Java](https://img.shields.io/badge/Java-11%2B-blue)
+![Maven](https://img.shields.io/badge/Maven-3.6.3%2B-orange)
+![JADE](https://img.shields.io/badge/JADE-4.5-green)
 
-# JADE Agents Project: Basketball Players
-
-This project demonstrates the setup and running of two communicating JADE agents within a Maven-enabled Java development environment using Visual Studio Code (VSCode) as the primary IDE.
+This project demonstrates a basketball simulation where two players—one attacker and one defender—compete in a 1 vs 1 game using the JADE framework.
 
 ## Prerequisites
 
-Ensure the following software is installed on your system before proceeding:
+Ensure that the following software is installed on your system before proceeding:
 
-- **Java JDK**: Java Development Kit (JDK) 11 or higher.
+- **Java JDK**: Java Development Kit (JDK) version 11 or higher.
 - **Maven**: Apache Maven for managing project dependencies and builds.
-- **Visual Studio Code (VSCode)**: With the Java Extension Pack installed.
 
 ## Setup Instructions
 
-### 1. Install Java and Maven
+### 1. Clone the Repository
 
-- **Java**: Download and install the JDK from [Oracle's JDK Download](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) or use OpenJDK.
-- **Maven**: Download and install Maven from [Apache Maven Project](https://maven.apache.org/download.cgi).
-
-### 2. Configure Maven and VSCode
-
-- Install the **Java Extension Pack** in VSCode via the Extensions view (`Ctrl+Shift+X`).
-- Ensure Maven is configured correctly by checking its path in your system's environment variables.
-
-### 3. Download and Set Up JADE
-
-- Download JADE from the [JADE Official Website](http://jade.tilab.com/download/jade/).
-- Include the JADE library in your project's Maven dependencies by adding the custom repository and dependency in your `pom.xml`:
-
-```xml
-<repositories>
-    <repository>
-        <id>jade-repo</id>
-        <url>https://jade.tilab.com/maven/</url>
-    </repository>
-</repositories>
-<dependencies>
-    <dependency>
-        <groupId>com.tilab.jade</groupId>
-        <artifactId>jade</artifactId>
-        <version>4.5.0</version>
-    </dependency>
-</dependencies>
+Clone the repository to your local machine:
+```bash
+git clone [<repository-url>](https://github.com/lukaskaibel/basketball-simulation.git)
+cd basketball-simulation
 ```
 
-### 6. Running the Project
+### 2. Install Dependencies
 
-- Compile and run your project using Maven:
-  ```
-  mvn clean compile exec:java
-  ```
-- This command should launch the JADE GUI and start your agents within the JADE environment.
+Install the necessary dependencies using Maven:
+```bash
+mvn install
+```
+
+### 3. Running the Project
+
+Compile and run the project using Maven:
+```bash
+mvn clean compile exec:java
+```
+This command will launch the JADE GUI and start your agents within the JADE environment.
+
+## License
+
+This project is licensed under the MIT License.
