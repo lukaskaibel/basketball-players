@@ -19,7 +19,7 @@ Ensure that the following software is installed on your system before proceeding
 
 Clone the repository to your local machine:
 ```bash
-git clone [<repository-url>](https://github.com/lukaskaibel/basketball-simulation.git)
+git clone https://github.com/lukaskaibel/basketball-simulation.git
 cd basketball-simulation
 ```
 
